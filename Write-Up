@@ -1,1 +1,45 @@
+# Overall
+This project goes over the bayes theorm and shows the major components involved with this theorm. This includes the prior distribution,
+estimates, probabilities involved, and the liklihood distribution as the main aspects. We will be looking at a very simple statistics 
+problem to work through these components and how they tie into the bayes theorm.
+
+#  Problem
+We will be looking at the the following problem: if 10 people were asked if they liked corgis and 7 of them said yes what is the probability
+that the next person asked would say yes. Though, the number of people, the sample size, as well as the the number of people who said yes,
+the observed number, can be changed if needed, we are going to just use these numbers so if we were to go about this problem mathematically
+it would be easier to compare some of the results computed if needed.
+
+# Information Behind Code
+We first begin by infering that the distribution will go along a binomial distribution and then create a definition of the distribution
+function in regards to theta. Theta representing the number of successes, the number of times someone will say yes when asked. 
+We will thus begin an our approach by considering multiple values of θ and pick the value that is most aligned with the data. This is our
+maximum likelihood, such known for the evalutaion of how likely our data is under various assumptions and choosing the best assumption as
+true. From our code and data imputs we receive a mle = 0.7, which can make sense for the fact that we have 7 yeses out of 10 people asked.
+Though, to make sure, we can test 100 random samples against this theory and compare the results. From the results produced from the graph 
+in which the most likely thetas for the 100 samples are tested and the former mle is compared, we can see that in this example the theta 
+most likely to be less than what we earlier predicted. This will show us that the chance of getting this mle is a lot smaller. 
+Then the prior distribution is found.
+Such skepticism involving the mle corresponds to the prior probability in Bayesian inference. Before any data or other data analysis can be
+be considered, we believe that certain values of θ are more likely than others. We will assume that p(θ = 0.2)>p(θ = 0.5), since none of our
+previous samples have had yes rates very close to 0.5 but most seem to be greater than 0.2. We express our prior beliefs of θ with p(θ). 
+Then we will choose to use historical samples to assess p(θ). 
+We will choose a beta distribution to be used for our prior distribution for θ. The beta distribution is a 2 parameter (α, β) distribution
+that is often used as a prior for the θ parameter of the binomial distribution. Since we want to use our previous samples for the basis of
+our prior beliefs, we will determine α and β by fitting a beta distribution to our historical yes rates. Thus, we will compare and fit 
+the data to a graph and make sure that these rates are properly aligned. 
+Ultimately, we are interested in the plausibility of all the proposed values of θ given our data, also considered our posterior distribution
+p(θ|X). Our posterior distribution is given by the product of our likelihood function and our prior distribution.
+Usually, the true posterior must be approximated with numerical methods and this is due to how its equation. The denominator p(X) is the 
+total probability of observing our data under all possible values of θ, which is usually represented in a non-closed integral, making the 
+process a little more difficult to render. Though, we can use PyMC so as to build an arbitrary probability model and obtain samples from 
+the posterior distribution, and create a work around for this problem. We will then create a histogram of the samples obtained from PyMC 
+so as to find out what the most probable values of θ are, when in comparison to our prior distribution and our evidence. Once this is done,
+we can find the mean for the most plausible theta. The one produced is about 0.19, which shows that he true yes rates are higher than
+originally thought, but much lower than the 0.7 yes rates first observed. 
+Through the wideness seen in our likelihood function when graphed we can conclude that there is a wide range of values of θ under which 
+our data is likely. If this range was narrower, then our posterior distribution would be shifted further in comparison along the graph.
+We can observe this shift in the posterior by changing the 0.7 yes rate sample sizes from 10, 100, 1,000, to 10,000.
+As more and more data is gained, the certainty for the 0.7 success rate is more plausible for being the true success rate. We can also 
+notice how the likelihood function begins to play a larger role in our ultimate assessment since the weight of the evidence gets stronger.
+
 
